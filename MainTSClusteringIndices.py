@@ -9,14 +9,16 @@ import time
 import os
 import datetime
 
+from tslearn.clustering import TimeSeriesKMeans
+
 
 def whatTimeIsIt():
     return datetime.datetime.fromtimestamp(time.time()).strftime("%Y%m%d%H%M%S")
 
 
 ## PARAMETERS##
-filePath = "C:/Users/josemaria.luna/PycharmProjects/LondonEnergy/data/"  # untreated-9-47k #pos-37k.tif
-fileName = "dataset_365_full.csv"
+filePath = "C:/Users/josemaria.luna/Downloads/"  # untreated-9-47k #pos-37k.tif
+fileName = "-42.csv"
 k_ini = 2
 k_end = 10
 k_width = range(k_ini, k_end + 1)
@@ -43,7 +45,7 @@ df = pd.read_csv(filePath + fileName, delimiter=",")
 
 ## Remove class and index columns
 # cols = [classIndex, idIndex]
-cols = ['id']
+cols = ['country', 'brand', 'therapeutic_area', 'num_generics', 'presentation', 'month_name', 'A', 'B', 'C', 'D']
 df.drop(cols, axis=1, inplace=True)
 
 X = df.values
@@ -55,8 +57,8 @@ list_wssse = []
 
 for k in k_width:
     print("Clustering with k=" + str(k) + "...")
-    kmeans_cluster = cluster.KMeans(n_clusters=k, n_init=100, max_iter=500, init='random', random_state=101287,
-                                    precompute_distances=False, n_jobs=4)
+    kmeans_cluster = TimeSeriesKMeans(n_clusters=k, metric="dtw", max_iter=5, max_iter_barycenter=5,
+                              random_state=0).fit(X)
     cluster_labels = kmeans_cluster.fit_predict(X)
 
     silhouette_avg = silhouette_score(X, cluster_labels)

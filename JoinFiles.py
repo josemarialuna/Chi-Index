@@ -7,18 +7,19 @@ import time
 import os
 import datetime
 
-# df_original = pd.read_csv("C:/Users/Josem/PycharmProjects/ClusteringIndices/20190604125818_brca_autoencoded.csv_4_Res/20190604125822_kmeans_winner.csv", delimiter="\t")
-df_original = pd.read_csv(
-    "C:/Users/Josem/PycharmProjects/ClusteringIndices/20190604120737_brca_autoencoded.csv_7_Res/20190604120741_kmeans_winner.csv",
-    delimiter="\t")
+path = "C:/Users/josemaria.luna/PycharmProjects/LondonEnergy/data/"
+filename_1 = "dataset_365_full.csv"
+filename_2 = "informations_households.csv"
 
-df_follow = pd.read_csv("C:/datasets/brca/followUP.csv", delimiter="\t")
+df_original = pd.read_csv(path + filename_1, delimiter=",")
+df_follow = pd.read_csv(path + filename_2, delimiter=",")
 
 print(df_original.head())
 print(df_follow.head())
 
-df_res = df_original.set_index('id').join(df_follow.set_index('bcr_patient_barcode'))
+df_res = df_original.set_index('id').join(df_follow.set_index('LCLid'))
+df_res.drop(['file', 'stdorToU'], axis=1, inplace=True)
 
 print(df_res.head())
 
-df_res.to_csv("df_res_7.csv", sep='\t')
+df_res.to_csv("dataset_365_full_acorn.csv", sep=',')

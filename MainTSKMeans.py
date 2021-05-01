@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from sklearn import cluster
+from tslearn.clustering import TimeSeriesKMeans
 from tslearn.generators import random_walks
 import seaborn as sns
 import numpy as np
@@ -16,7 +17,7 @@ def whatTimeIsIt():
 ## PARAMETERS##
 filePath = "C:/Users/josemaria.luna/Downloads/"  # untreated-9-47k #pos-37k.tif
 fileName = "-42.csv"
-k = 6
+k = 8
 classIndex = -1
 idIndex = 0
 
@@ -44,9 +45,12 @@ cols = ['country', 'brand', 'therapeutic_area', 'num_generics', 'presentation', 
 X = np.array(df.drop(cols, axis=1))
 
 
-kmeans = cluster.KMeans(n_clusters=k, n_init=100, max_iter=500, init='random', random_state=101287,
-                        precompute_distances=False, n_jobs=4).fit(X)
+kmeans = TimeSeriesKMeans(n_clusters=k, metric="dtw", max_iter=5,
+                           max_iter_barycenter=5,
+                          random_state=0).fit(X)
+
 centroids = kmeans.cluster_centers_
+np.savetxt(results_dir + whatTimeIsIt() + "_centroids.csv", centroids, delimiter=',')
 
 # print("centroids")
 #     # print(centroids)
@@ -77,14 +81,14 @@ df.to_csv(results_dir + whatTimeIsIt() + '_kmeans_winner.csv', sep='\t')
 # sns_plot3 = sns.pairplot(df, hue='Class')
 # sns_plot3.savefig(results_dir + whatTimeIsIt() + "_class_cluster.png")
 
-df[['id','Class', 'clusters']].to_csv(results_dir + whatTimeIsIt() + '_kmeans_winner.csv', sep='\t')
-
-df_cluster = pd.crosstab(df.clusters, df.Class, normalize='index')
-df_features = pd.crosstab(df.Class, df.clusters, normalize='index').T
-
-df_cluster *= 100
-df_features *= 100
-
-df_cluster.to_csv(results_dir + whatTimeIsIt() + '_df_cluster_winner.csv', sep='\t')
-df_features.to_csv(results_dir + whatTimeIsIt() + '_df_features_winner.csv', sep='\t')
+# df[['id', 'Class', 'clusters']].to_csv(results_dir + whatTimeIsIt() + '_kmeans_winner.csv', sep='\t')
+#
+# df_cluster = pd.crosstab(df.clusters, df.Class, normalize='index')
+# df_features = pd.crosstab(df.Class, df.clusters, normalize='index').T
+#
+# df_cluster *= 100
+# df_features *= 100
+#
+# df_cluster.to_csv(results_dir + whatTimeIsIt() + '_df_cluster_winner.csv', sep='\t')
+# df_features.to_csv(results_dir + whatTimeIsIt() + '_df_features_winner.csv', sep='\t')
 
