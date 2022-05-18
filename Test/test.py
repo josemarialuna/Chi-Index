@@ -1,13 +1,14 @@
 import pandas as pd
 
-from ChiIndex.model import ChiIndex
+from chi_index.model import ChiIndex
 
 df = pd.read_csv('data/iris.data', delimiter=",", header=None)
 print(df.columns)
 print(df.head())
 df.rename(columns={4: 'Class'}, inplace=True)
 
-chi = ChiIndex(df, results_path='res')
+chi = ChiIndex(df, results_path='result')
 print(chi.list_chi)
 print(chi.optimum_chi)
+print(chi.optimum_k)
 
