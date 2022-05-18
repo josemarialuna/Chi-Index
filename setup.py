@@ -1,14 +1,14 @@
 from distutils.core import setup
 setup(
-  name = 'chiindex',
-  packages = ['chiindex'],
+  name = 'chi_index',
+  packages = ['chi_index'],
   version = '0.1',
   license='MIT',
-  description = 'Clustering Validation Chi index',
+  description = 'External Clustering Validation Chi index',
   author = 'José María Luna-Romera',
   author_email = 'josemarialunaromera@gmail.com',
   url = 'https://github.com/josemarialuna/ChiIndex',
-  download_url = 'https://github.com/josemarialuna/ChiIndex/archive/v_01.tar.gz',
+  download_url = 'https://github.com/josemarialuna/ChiIndex/tarball/0.1',
   keywords = ['chi index','cvi','clustering','machine learning'],
   install_requires=[
           'sklearn',
