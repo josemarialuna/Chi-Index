@@ -46,3 +46,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
   
 ### Contributors
 * [@pedrolarben](https://github.com/pedrolarben)
+
+### Cite this
+Please, cite as: Luna-Romera JM, Martínez-Ballesteros M, García-Gutiérrez J, Riquelme JC. External clustering validity index based on chi-squared statistical test. Information Sciences (2019) 487: 1-17. https://doi.org/10.1016/j.ins.2019.02.046. (http://www.sciencedirect.com/science/article/pii/S0020025519301550)
