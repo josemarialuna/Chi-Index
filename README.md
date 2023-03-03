@@ -15,7 +15,7 @@
 
 ### Installing Chi Index
 
-You can install ChiIndex and its dependencies from PyPI with:
+You can install Chi Index and its dependencies from PyPI with:
 
 ```bash
 pip install chi-index
