@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'chi_index',
   packages = ['chi_index'],
-  version = '0.1',
+  version = '1.1',
   license='MIT',
   description = 'External Clustering Validation Chi index',
   author = 'José María Luna-Romera',
@@ -12,14 +12,15 @@ setup(
   keywords = ['chi index','cvi','clustering','machine learning'],
   install_requires=[
           'sklearn',
+          'scipy',
           'numpy',
-          'pandas'
+          'pandas',
       ],
   classifiers=[
     'Development Status :: 3 - Alpha',
-    'Intended Audience :: Data Scientists',
+    'Intended Audience :: Science/Research',
     'Topic :: Software Development :: Build Tools',
-    'License :: OSI Approved :: MIT License'
+    'License :: OSI Approved :: MIT License',
     'Programming Language :: Python :: 3',
     'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: 3.8',
