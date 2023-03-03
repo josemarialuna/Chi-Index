@@ -3,3 +3,4 @@ setup.cfg
 setup.py
 chi_index\__init__.py
 chi_index\model.py
+test\test.py
