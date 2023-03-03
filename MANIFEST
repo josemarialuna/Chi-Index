@@ -3,4 +3,7 @@ setup.cfg
 setup.py
 chi_index\__init__.py
 chi_index\model.py
+chi_index\utils\__init__.py
+chi_index\utils\plot_utils.py
+chi_index\utils\tools.py
 test\test.py

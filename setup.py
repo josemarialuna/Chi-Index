@@ -1,8 +1,8 @@
 from distutils.core import setup
 setup(
   name = 'chi_index',
-  packages = ['chi_index'],
-  version = '1.0.4',
+  packages = ['chi_index','chi_index.utils'],
+  version = '1.1',
   license='MIT',
   description = 'External Clustering Validation Chi index',
   author = 'José María Luna-Romera',
