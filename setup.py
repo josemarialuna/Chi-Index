@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'chi_index',
   packages = ['chi_index'],
-  version = '1.0.3',
+  version = '1.0.4',
   license='MIT',
   description = 'External Clustering Validation Chi index',
   author = 'José María Luna-Romera',
