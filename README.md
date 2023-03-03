@@ -15,6 +15,17 @@
 ## About Chi Index
 Chi Index is an external clustering validity index that measure the distance between the instances of a clustering result and the labels. Although clustering is an unsupervised learning machine learning technique, chi index, it tries to favor that the clusters formed have the least number of different labels.
 
+![Clustering Solutions](https://github.com/josemarialuna/Chi-Index/blob/6cca612637ee3f9eea38bb4738a58007a2de86e5/images/chi-solutions.jpg)
+
+BLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLA
+
+| **k  | X2row  | X2column  | X2rowMAX  | X2columnMAX  | Chi Index(k)** |
+|:------------- |:---------------:|:---------------:|:---------------:|:---------------:| -------------:|
+| 2        | xx    | xx    | xx    | xx       | 	0.890        |
+| 3         | xx    | xx    | xx    | xx       | **0.925**        |
+| 4        | xx    | xx    | xx    | xx    | 0.760        |
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Getting Started
@@ -30,7 +41,7 @@ pip install chi-index
 ### Example
 
 To run this example you must have installed the chi index library by executing the command in the previous section. 
-After that, you must download the file iris.data from the UCI repository, and place it in a folder called "data". To make it easier for you, I leave here the link: XXX
+After that, you must download the file iris.data from the [UCI repository](https://archive.ics.uci.edu/ml/datasets/iris), and place it in a folder called "data". To make it easier for you, I leave here the link: [iris.data]([http://www.limni.net](https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data))
 
 Then you can copy and paste the following code:
 
