@@ -4,8 +4,8 @@ import numpy as np
 import pandas as pd
 from scipy.stats import chi2_contingency
 from sklearn import cluster
-from utils.tools import save_dataframe
-from utils.plot_utils import Visualizer
+from chi_index.utils.tools import save_dataframe
+from chi_index.utils.plot_utils import Visualizer
 
 
 class ChiIndex:
