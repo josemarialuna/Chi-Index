@@ -15,15 +15,19 @@
 ## About Chi Index
 Chi Index is an external clustering validity index that measure the distance between the instances of a clustering result and the labels. Although clustering is an unsupervised learning machine learning technique, chi index, it tries to favor that the clusters formed have the least number of different labels.
 
-![Clustering Solutions](https://github.com/josemarialuna/Chi-Index/blob/6cca612637ee3f9eea38bb4738a58007a2de86e5/images/chi-solutions.jpg)
+<p align="center">
+  <img alt="Clustering Solutions" src="https://github.com/josemarialuna/Chi-Index/blob/6cca612637ee3f9eea38bb4738a58007a2de86e5/images/chi-solutions.jpg" width="50%">
+</p>
+
 
 BLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLA
 
-| **k  | X2row  | X2column  | X2rowMAX  | X2columnMAX  | Chi Index(k)** |
-|:------------- |:---------------:|:---------------:|:---------------:|:---------------:| -------------:|
+| k  | X2row  | X2column  | X2rowMAX  | X2columnMAX  | Chi Index(k) |
+|:-------------: |:---------------:|:---------------:|:---------------:|:---------------:| -------------:|
 | 2        | xx    | xx    | xx    | xx       | 	0.890        |
 | 3         | xx    | xx    | xx    | xx       | **0.925**        |
 | 4        | xx    | xx    | xx    | xx    | 0.760        |
+
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -67,7 +71,7 @@ if __name__ == "__main__":
     main()
 ```
 
-If you have any problem, or you don't manage to execute the code, please contact me through ISSUES so I can help you.
+If you have any problem, or you don't manage to execute the code, please contact me through [DISCUSSION](https://github.com/josemarialuna/Chi-Index/discussions) so I can help you.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -91,7 +95,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Cite this
+## Cite this
 Please, cite as: Luna-Romera JM, Martínez-Ballesteros M, García-Gutiérrez J, Riquelme JC. External clustering validity index based on chi-squared statistical test. Information Sciences (2019) 487: 1-17. https://doi.org/10.1016/j.ins.2019.02.046. (http://www.sciencedirect.com/science/article/pii/S0020025519301550)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
