@@ -8,7 +8,7 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 [![PyPI](https://img.shields.io/pypi/v/ADLStream.svg)](https://pypi.org/project/chi-index/)
-[![Downloads](https://pepy.tech/badge/chi-index)](https://pepy.tech/project/chi-index)
+[![Downloads](https://static.pepy.tech/badge/chi-index)](https://pepy.tech/project/chi-index)
 [![Python 3.6](https://img.shields.io/badge/Python-3.6%20%7C%203.7%20%7C%203.8-blue)](https://www.python.org/downloads/release/python-360/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
