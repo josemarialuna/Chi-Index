@@ -13,22 +13,25 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ## About Chi Index
-Chi Index is an external clustering validity index that measure the distance between the instances of a clustering result and the labels. Although clustering is an unsupervised learning machine learning technique, chi index, it tries to favor that the clusters formed have the least number of different labels.
+Chi Index is an external clustering validity index that measure the distance between the instances of a clustering result and the labels. Although clustering is an unsupervised learning machine learning technique, Chi index favors that the clusters formed have the least number of different labels.
+
+For example, in the following image we can see 3 different clustering solutions, in which each of the circles represents an instance of the dataset, and the color, the class to which it belongs. In A, we can see that there is a cluster that has 5 red instances, and two green instances, while in the other cluster we have 2 red instances, 8 green instances, and 6 blue instances. In solution B, with k=3, we find that the cluster at the top of the figure has mostly red instances, the one on the left is mostly blue, and the one at the bottom has mostly green instances.
 
 <p align="center">
-  <img alt="Clustering Solutions" src="https://github.com/josemarialuna/Chi-Index/blob/6cca612637ee3f9eea38bb4738a58007a2de86e5/images/chi-solutions.jpg" width="50%">
+  <img alt="Clustering Solutions" src="https://github.com/josemarialuna/Chi-Index/blob/6cca612637ee3f9eea38bb4738a58007a2de86e5/images/chi-solutions.jpg" width="60%">
 </p>
 
+Chi index measures the distribution of instances from the clusters formed and the number of instances of each label in them, and calculates a metric based on the chi-square statistic. In the following table we can see the chi index results for each of the clustering solutions. 
 
-BLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLA
+| k  | Chi Index(k) |
+|:-------------: |:-------------:|
+| 2        |  	0.890        |
+| 3         |  **0.925**        |
+| 4        |  0.760        |
 
-| k  | X2row  | X2column  | X2rowMAX  | X2columnMAX  | Chi Index(k) |
-|:-------------: |:---------------:|:---------------:|:---------------:|:---------------:| -------------:|
-| 2        | xx    | xx    | xx    | xx       | 	0.890        |
-| 3         | xx    | xx    | xx    | xx       | **0.925**        |
-| 4        | xx    | xx    | xx    | xx    | 0.760        |
+As we can see, the clustering solution with the highest chi index value is k=3, which indicates that to separate instances of the same label into clusters, the optimal number of clusters is 3.
 
-
+The higher the chi index value, the greater the dependency between clusters and labels, i.e. the clustering solution with the highest chi index will indicate that the instances belonging to the same class are grouped as well as possible in the clusters.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
