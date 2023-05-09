@@ -100,6 +100,20 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Cite this
 Please, cite as: Luna-Romera JM, Martínez-Ballesteros M, García-Gutiérrez J, Riquelme JC. External clustering validity index based on chi-squared statistical test. Information Sciences (2019) 487: 1-17. https://doi.org/10.1016/j.ins.2019.02.046. (http://www.sciencedirect.com/science/article/pii/S0020025519301550)
+```
+@article{LUNAROMERA20191,
+title = {External clustering validity index based on chi-squared statistical test},
+journal = {Information Sciences},
+volume = {487},
+pages = {1-17},
+year = {2019},
+issn = {0020-0255},
+doi = {https://doi.org/10.1016/j.ins.2019.02.046},
+url = {https://www.sciencedirect.com/science/article/pii/S0020025519301550},
+author = {José María Luna-Romera and María Martínez-Ballesteros and Jorge García-Gutiérrez and José C. Riquelme},
+keywords = {Clustering analysis, External validity indices, Comparing clusters, Big data}
+}
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
