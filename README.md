@@ -12,15 +12,15 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/chi-index)
 
 ## About Chi Index
-Chi Index is an external clustering validity index that measure the distance between the instances of a clustering result and the labels. Although clustering is an unsupervised learning machine learning technique, Chi index favors that the clusters formed have the least number of different labels.
+Chi Index is an external clustering validity index that measures the distance between the instances of a clustering result and the labels. Although clustering is an unsupervised learning machine learning technique, Chi index favours that the clusters formed have the least number of different labels.
 
-For example, in the following image we can see 3 different clustering solutions, in which each of the circles represents an instance of the dataset, and the color, the class to which it belongs. In A, we can see that there is a cluster that has 5 red instances, and two green instances, while in the other cluster we have 2 red instances, 8 green instances, and 6 blue instances. In solution B, with k=3, we find that the cluster at the top of the figure has mostly red instances, the one on the left is mostly blue, and the one at the bottom has mostly green instances.
+For example, in the following image, we can see 3 different clustering solutions, in which each of the circles represents an instance of the dataset, and the color, the class to which it belongs. In A, we can see that there is a cluster that has 5 red instances, and two green instances, while in the other cluster, we have 2 red instances, 8 green instances, and 6 blue instances. In solution B, with k=3, we find that the cluster at the top of the figure has mostly red instances, the one on the left is mostly blue, and the one at the bottom has mostly green instances.
 
 <p align="center">
   <img alt="Clustering Solutions" src="images\chi-solutions.jpg" width="60%">
 </p>
 
-Chi index measures the distribution of instances from the clusters formed and the number of instances of each label in them, and calculates a metric based on the chi-square statistic. In the following table we can see the chi index results for each of the clustering solutions. 
+Chi index measures the distribution of instances from the clusters formed and the number of instances of each label in them and calculates a metric based on the chi-square statistic. In the following table, we can see the chi index results for each of the clustering solutions. 
 
 | k  | Chi Index(k) |
 |:-------------: |:-------------:|
@@ -46,7 +46,7 @@ pip install chi-index
 
 ### Examples
 
-There are two examples to run the library: in the first one that is quite similar to other metrics such *silhouette_score* from [sklearn](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html), and the second one that works as a Class and includes all the k-means execution. 
+There are two examples to run the library: the first one that is quite similar to other metrics such *silhouette_score* from [sklearn](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html), and the second one that works as a Class and includes all the k-means execution. 
 
 **Note**: To run this example you must have installed the chi index library by executing the command in the previous section. 
 After that, you must download the file iris.data from the [UCI repository](https://archive.ics.uci.edu/ml/datasets/iris), and place it in a folder called "data". To make it easier for you, I leave here the link: [iris.data]([http://www.limni.net](https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data))
@@ -85,7 +85,7 @@ if __name__ == "__main__":
 
 #### Example 2
 
-In this case the class include all the needed code to execute the K-means. You can copy and paste the following code that uses the Iris dataset:
+In this case, the class include all the needed code to execute the K-means. You can copy and paste the following code that uses the Iris dataset:
 
 ```python 
 import pandas as pd
@@ -166,4 +166,3 @@ keywords = {Clustering analysis, External validity indices, Comparing clusters, 
 [license-url]: https://github.com/josemarialuna/Chi-Index/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/josemarialuna
-[product-screenshot]: images/screenshot.png
