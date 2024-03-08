@@ -5,7 +5,7 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+[![Personal][personal-shield]][personal-url]
 
 [![PyPI](https://img.shields.io/pypi/v/chi-index.svg)](https://pypi.org/project/chi-index/)
 [![Downloads](https://static.pepy.tech/badge/chi-index)](https://pepy.tech/project/chi-index)
@@ -164,5 +164,5 @@ keywords = {Clustering analysis, External validity indices, Comparing clusters, 
 [issues-url]: https://github.com/josemarialuna/Chi-Index/issues
 [license-shield]: https://img.shields.io/github/license/josemarialuna/Chi-Index.svg?style=for-the-badge
 [license-url]: https://github.com/josemarialuna/Chi-Index/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/josemarialuna
+[personal-shield]: https://img.shields.io/badge/Personal%20Site-555?style=for-the-badge
+[personal-url]: https://josemarialuna.com
