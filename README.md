@@ -18,7 +18,7 @@ Chi Index is an external clustering validity index that measure the distance bet
 For example, in the following image we can see 3 different clustering solutions, in which each of the circles represents an instance of the dataset, and the color, the class to which it belongs. In A, we can see that there is a cluster that has 5 red instances, and two green instances, while in the other cluster we have 2 red instances, 8 green instances, and 6 blue instances. In solution B, with k=3, we find that the cluster at the top of the figure has mostly red instances, the one on the left is mostly blue, and the one at the bottom has mostly green instances.
 
 <p align="center">
-  <img alt="Clustering Solutions" src="https://github.com/josemarialuna/Chi-Index/blob/6cca612637ee3f9eea38bb4738a58007a2de86e5/images/chi-solutions.jpg" width="60%">
+  <img alt="Clustering Solutions" src="images\chi-solutions.jpg" width="60%">
 </p>
 
 Chi index measures the distribution of instances from the clusters formed and the number of instances of each label in them, and calculates a metric based on the chi-square statistic. In the following table we can see the chi index results for each of the clustering solutions. 
@@ -45,12 +45,48 @@ The Chi index version of this repository is implemented in Python. You can use a
 pip install chi-index
 ```
 
-### Example
+### Examples
 
-To run this example you must have installed the chi index library by executing the command in the previous section. 
+There are two examples to run the library: in the first one that is quite similar to other metrics such *silhouette_score* from [sklearn](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html), and the second one that works as a Class and includes all the k-means execution. 
+
+**Note**: To run this example you must have installed the chi index library by executing the command in the previous section. 
 After that, you must download the file iris.data from the [UCI repository](https://archive.ics.uci.edu/ml/datasets/iris), and place it in a folder called "data". To make it easier for you, I leave here the link: [iris.data]([http://www.limni.net](https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data))
 
-Then you can copy and paste the following code:
+#### Example 1
+
+This is the easiest one and it's quite similar as other common metrics such as *silhouette_score*:
+```python 
+import pandas as pd
+from chi_index import metrics
+from sklearn import cluster
+import numpy as np
+
+def main():
+    df = pd.read_csv('./test/data/iris.data', delimiter=",", header=None)
+    print(df.columns)
+    print(df.head())
+    df.rename(columns={4: 'Class'}, inplace=True)
+
+    X = np.array(df.drop(['Class'], axis=1))
+
+    for clusters_num in range(2,11):        
+        # Clustering stage
+        kmeans_model = cluster.KMeans(n_clusters=clusters_num, n_init=100, max_iter=500, init='random').fit(X)
+        labels = kmeans_model.predict(X)
+        df.loc[:, 'cluster'] = labels   # saves the clustering labels into 'cluster' new column
+
+        # chi_index_score receives the clustering result array and the class array
+        valor = metrics.chi_index_score(df['cluster'], df['Class'], k=clusters_num)
+        print(clusters_num , '\t', valor)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+#### Example 2
+
+In this case the class include all the needed code to execute the K-means. You can copy and paste the following code that uses the Iris dataset:
 
 ```python 
 import pandas as pd

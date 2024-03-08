@@ -1,2 +1,9 @@
 dist/*
+build/*
 result/*
+chi_index.egg-info
+.pypirc
+__pycache__/
+chi_index/__pycache__/*
+chi_index/utils/__pycache__/*
+utils/__pycache__/*

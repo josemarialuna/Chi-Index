@@ -1,10 +1,13 @@
-from distutils.core import setup
+from setuptools import setup
+
 setup(
-  name = 'chi_index',
+  name = 'chi-index',
   packages = ['chi_index','chi_index.utils'],
-  version = '2.0',
+  version = '2.1',
   license='MIT',
   description = 'External Clustering Validation Chi index',
+  long_description=open('README.md', 'r').read(),
+  long_description_content_type='text/markdown',
   author = 'José María Luna-Romera',
   author_email = 'josemarialunaromera@gmail.com',
   url = 'https://github.com/josemarialuna/ChiIndex',
