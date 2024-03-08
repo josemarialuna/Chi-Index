@@ -14,7 +14,7 @@ setup(
   download_url = 'https://github.com/josemarialuna/ChiIndex/tarball/0.1',
   keywords = ['chi index','cvi','clustering','machine learning'],
   install_requires=[
-          'sklearn',
+          'scikit-learn',
           'scipy',
           'numpy',
           'pandas',
