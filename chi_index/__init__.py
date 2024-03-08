@@ -1,3 +1,4 @@
-from chi_index import utils
+from chi_index.utils import *
 
-from chi_index.model import ChiIndex
+from chi_index.model import *
+from chi_index.metrics import *
