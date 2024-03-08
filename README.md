@@ -7,10 +7,9 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-[![PyPI](https://img.shields.io/pypi/v/ADLStream.svg)](https://pypi.org/project/chi-index/)
+[![PyPI](https://img.shields.io/pypi/v/chi-index.svg)](https://pypi.org/project/chi-index/)
 [![Downloads](https://static.pepy.tech/badge/chi-index)](https://pepy.tech/project/chi-index)
-[![Python 3.6](https://img.shields.io/badge/Python-3.6%20%7C%203.7%20%7C%203.8-blue)](https://www.python.org/downloads/release/python-360/)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/chi-index)
 
 ## About Chi Index
 Chi Index is an external clustering validity index that measure the distance between the instances of a clustering result and the labels. Although clustering is an unsupervised learning machine learning technique, Chi index favors that the clusters formed have the least number of different labels.
@@ -129,8 +128,8 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Contact 
 
-* **José María Luna-Romera** - [LinkedIn](http://www.linkedin.com/in/josemluna)
-* **José C. Riquelme**
+* **José María Luna-Romera** - [Personal site](https://josemarialuna.com/)
+* **José C. Riquelme** - [Research Group](https://grupo.us.es/minerva/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -168,4 +167,3 @@ keywords = {Clustering analysis, External validity indices, Comparing clusters, 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/josemarialuna
 [product-screenshot]: images/screenshot.png
- 
