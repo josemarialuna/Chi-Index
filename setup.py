@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
   name = 'chi-index',
   packages = ['chi_index','chi_index.utils'],
-  version = '2.1',
+  version = '2.1.1',
   license='MIT',
   description = 'External Clustering Validation Chi index',
   long_description=open('README.md', 'r').read(),
