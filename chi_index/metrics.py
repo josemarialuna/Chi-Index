@@ -44,8 +44,8 @@ def _contingency(cluster_labels, class_labels):
     np.add.at(counts, (row_codes, col_codes), 1)
     return pd.DataFrame(
         counts,
-        index=pd.Index(row_labels, name="cluster"),
-        columns=pd.Index(col_labels, name="class"),
+        index=pd.Index(row_labels, dtype=object, name="cluster"),
+        columns=pd.Index(col_labels, dtype=object, name="class"),
     )
 
 
