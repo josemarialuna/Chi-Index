@@ -1,12 +1,18 @@
+"""Small file and time utilities."""
+
 from datetime import datetime
-import time
+from pathlib import Path
 
 
-def whatTimeIsIt(time_format='d/m/Y'):
-    """Returns the timestamp in the time_format given."""
-    return datetime.datetime.fromtimestamp(time.time()).strftime(time_format)
+def whatTimeIsIt(time_format="%d/%m/%Y"):
+    """Return local time formatted using ``datetime.strftime`` directives."""
+    return datetime.now().strftime(time_format)
 
 
-def save_dataframe(df, results_path: str, filename: str) -> None:
-    """Save the dataframe (df) into the self.results_path with the 'filename'."""
-    df.to_csv(f'{results_path}/{filename}', sep='\t')
+def save_dataframe(df, results_path, filename):
+    """Save a tab-separated DataFrame, creating the destination directory."""
+    directory = Path(results_path)
+    directory.mkdir(parents=True, exist_ok=True)
+    path = directory / filename
+    df.to_csv(path, sep="\t", encoding="utf-8")
+    return path

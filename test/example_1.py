@@ -1,25 +1,26 @@
+"""Evaluate K-means partitions with the standalone metric."""
+
+from pathlib import Path
+
 import pandas as pd
-from chi_index import metrics
-from sklearn import cluster
-import numpy as np
+from sklearn.cluster import KMeans
+
+from chi_index import chi_index_score
+
 
 def main():
-    df = pd.read_csv('./test/data/iris.data', delimiter=",", header=None)
-    print(df.columns)
-    print(df.head())
-    df.rename(columns={4: 'Class'}, inplace=True)
-
-    X = np.array(df.drop(['Class'], axis=1))
-
-    for clusters_num in range(2,11):        
-        # Clustering stage
-        kmeans_model = cluster.KMeans(n_clusters=clusters_num, n_init=100, max_iter=500, init='random').fit(X)
-        labels = kmeans_model.predict(X)
-        df.loc[:, 'cluster'] = labels   # saves the clustering labels into 'cluster' new column
-
-        # chi_index_score receives the clustering result array and the class array
-        valor = metrics.chi_index_score(df['cluster'], df['Class'], k=clusters_num)
-        print(clusters_num , '\t', valor)
+    source = Path(__file__).resolve().parent / "data" / "iris.data"
+    df = pd.read_csv(source, header=None)
+    X, classes = df.iloc[:, :-1], df.iloc[:, -1]
+    for k in range(2, 11):
+        labels = KMeans(
+            n_clusters=k,
+            n_init=100,
+            max_iter=500,
+            init="random",
+            random_state=0,
+        ).fit_predict(X)
+        print(k, chi_index_score(labels, classes))
 
 
 if __name__ == "__main__":
