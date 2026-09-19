@@ -1,6 +1,7 @@
 """Model selection, side effects, validation and plotting regressions."""
 
 from datetime import datetime
+from types import SimpleNamespace
 
 import numpy as np
 import pandas as pd
@@ -18,14 +19,38 @@ def frame():
     return result
 
 
-def test_selects_middle_winner_and_preserves_input(frame, tmp_path):
+def test_selects_middle_winner_and_preserves_input(monkeypatch, tmp_path):
+    # Fixed partitions from paper Table 4 isolate selection from changes in
+    # scikit-learn's random initialization algorithms across releases.
+    tables = {
+        2: [[2, 8, 6], [6, 2, 0]],
+        3: [[0, 2, 6], [6, 2, 0], [2, 6, 0]],
+        4: [[0, 2, 5], [4, 1, 0], [2, 1, 0], [2, 6, 1]],
+    }
+    frame = pd.DataFrame(
+        {
+            "x": np.arange(24),
+            "y": np.arange(24) ** 2,
+            "Class": np.repeat(["a", "b", "c"], [8, 10, 6]),
+        }
+    )
+
+    def fit_partition(self, k, X):
+        labels = np.array([i for j in range(3) for i in range(k) for _ in range(tables[k][i][j])])
+        self.kmeans_model = SimpleNamespace(
+            n_clusters=k,
+            labels_=labels,
+            cluster_centers_=np.array([X[labels == i].mean(axis=0) for i in range(k)]),
+        )
+
+    monkeypatch.setattr(ChiIndex, "kmeans", fit_partition)
     original = frame.copy(deep=True)
     destination = tmp_path / "absent"
     model = ChiIndex(
         frame, k_ini=2, k_end=4, save_results=False, results_path=destination, n_init=5
     )
     assert model.optimum_k == 3
-    assert model.optimum_chi == pytest.approx(1.6287373737373738)
+    assert model.optimum_chi == pytest.approx(0.925)
     assert model.kmeans_model.n_clusters == 3
     assert model.cluster_centers_.shape == (3, 2)
     assert chi_index_score(model.labels_, frame.Class) == model.optimum_chi
@@ -34,6 +59,15 @@ def test_selects_middle_winner_and_preserves_input(frame, tmp_path):
     second = ChiIndex(frame, 2, 4, save_results=False, n_init=5)
     np.testing.assert_array_equal(model.labels_, second.labels_)
     pd.testing.assert_frame_equal(model.results_, second.results_)
+
+
+def test_real_kmeans_is_repeatable_in_same_environment(frame):
+    first = ChiIndex(frame, 2, 4, save_results=False, n_init=5)
+    second = ChiIndex(frame, 2, 4, save_results=False, n_init=5)
+    np.testing.assert_array_equal(first.labels_, second.labels_)
+    pd.testing.assert_frame_equal(first.results_, second.results_)
+    assert first.kmeans_model.n_clusters == first.optimum_k
+    assert chi_index_score(first.labels_, frame.Class) == first.optimum_chi
 
 
 def test_exported_scores_match_standalone_metric(frame, tmp_path):
@@ -137,7 +171,7 @@ def test_centroids_save_best_model_without_leaking_figures(frame, tmp_path):
         vis.savefig(tmp_path / "before.png")
     vis.start()
     assert vis.centroids(model.kmeans_model) is None
-    assert len(vis.ax.lines) == 3
+    assert len(vis.ax.lines) == model.optimum_k
     for line, center in zip(vis.ax.lines, model.cluster_centers_, strict=True):
         np.testing.assert_array_equal(line.get_ydata(), center)
     vis.close()
