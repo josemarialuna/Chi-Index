@@ -1,168 +1,160 @@
-<a name="readme-top"></a>
-# External Clustering Validation Chi Index
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![Personal][personal-shield]][personal-url]
+# Chi Index
 
+[![CI](https://github.com/josemarialuna/Chi-Index/actions/workflows/ci.yml/badge.svg)](https://github.com/josemarialuna/Chi-Index/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/chi-index.svg)](https://pypi.org/project/chi-index/)
 [![Downloads](https://static.pepy.tech/badge/chi-index)](https://pepy.tech/project/chi-index)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/chi-index)
+[![Python versions](https://img.shields.io/pypi/pyversions/chi-index.svg)](https://pypi.org/project/chi-index/)
+[![Stars](https://img.shields.io/github/stars/josemarialuna/Chi-Index.svg)](https://github.com/josemarialuna/Chi-Index/stargazers)
+[![Contributors](https://img.shields.io/github/contributors/josemarialuna/Chi-Index.svg)](https://github.com/josemarialuna/Chi-Index/graphs/contributors)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.txt)
 
-## About Chi Index
-Chi Index is an external clustering validity index that measures the distance between the instances of a clustering result and the labels. Although clustering is an unsupervised learning machine learning technique, Chi index favours that the clusters formed have the least number of different labels.
+Chi Index evaluates a clustering partition against known class labels using
+two normalized Pearson chi-squared statistics. Scores range from **0 to 2**;
+larger is better. Class labels are used for evaluation, never as clustering
+features. The standalone metric works with any hard clustering algorithm.
 
-For example, in the following image, we can see 3 different clustering solutions, in which each of the circles represents an instance of the dataset, and the color, the class to which it belongs. In A, we can see that there is a cluster that has 5 red instances, and two green instances, while in the other cluster, we have 2 red instances, 8 green instances, and 6 blue instances. In solution B, with k=3, we find that the cluster at the top of the figure has mostly red instances, the one on the left is mostly blue, and the one at the bottom has mostly green instances.
+This repository implements the index from
+[Luna-Romera et al., Information Sciences 487 (2019), 1–17](https://doi.org/10.1016/j.ins.2019.02.046).
+See [mathematical details and paper discrepancies](docs/mathematics.md).
+The paper's experiments used Spark; this package runs locally with NumPy,
+pandas, SciPy and scikit-learn.
 
-<p align="center">
-  <img alt="Clustering Solutions" src="images\chi-solutions.jpg" width="60%">
-</p>
+## Installation
 
-Chi index measures the distribution of instances from the clusters formed and the number of instances of each label in them and calculates a metric based on the chi-square statistic. In the following table, we can see the chi index results for each of the clustering solutions. 
+Version **3.0.0** requires Python **3.10+**. See the
+[migration notes](CHANGELOG.md) before upgrading from 2.x.
 
-| k  | Chi Index(k) |
-|:-------------: |:-------------:|
-| 2        |  	0.890        |
-| 3         |  **0.925**        |
-| 4        |  0.760        |
+Install or upgrade the published package:
 
-As we can see, the clustering solution with the highest chi index value is k=3, which indicates that to separate instances of the same label into clusters, the optimal number of clusters is 3.
-
-The higher the chi index value, the greater the dependency between clusters and labels, i.e. the clustering solution with the highest chi index will indicate that the instances belonging to the same class are grouped as well as possible in the clusters.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Getting Started
-Using Chi Index is very simple, and here is how to do it in a few steps. You just need to have installed the Chi Index library available through the pip, and after that, you will need to import it into your Python application.
-
-### Installing Chi Index
-
-The Chi index version of this repository is implemented in Python. You can use any version of Python from 3.7 onwards, although it is recommended to use 3.10. To install the library you only need to execute the following command:
 ```bash
-pip install chi-index
+python -m pip install --upgrade chi-index
+# Optional plotting:
+python -m pip install --upgrade "chi-index[plot]"
 ```
 
-### Examples
+To install from the repository instead:
 
-There are two examples to run the library: the first one that is quite similar to other metrics such *silhouette_score* from [sklearn](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html), and the second one that works as a Class and includes all the k-means execution. 
-
-**Note**: To run this example you must have installed the chi index library by executing the command in the previous section. 
-After that, you must download the file iris.data from the [UCI repository](https://archive.ics.uci.edu/ml/datasets/iris), and place it in a folder called "data". To make it easier for you, I leave here the link: [iris.data]([http://www.limni.net](https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data))
-
-#### Example 1
-
-This is the easiest one and it's quite similar as other common metrics such as *silhouette_score*:
-```python 
-import pandas as pd
-from chi_index import metrics
-from sklearn import cluster
-import numpy as np
-
-def main():
-    df = pd.read_csv('./test/data/iris.data', delimiter=",", header=None)
-    print(df.columns)
-    print(df.head())
-    df.rename(columns={4: 'Class'}, inplace=True)
-
-    X = np.array(df.drop(['Class'], axis=1))
-
-    for clusters_num in range(2,11):        
-        # Clustering stage
-        kmeans_model = cluster.KMeans(n_clusters=clusters_num, n_init=100, max_iter=500, init='random').fit(X)
-        labels = kmeans_model.predict(X)
-        df.loc[:, 'cluster'] = labels   # saves the clustering labels into 'cluster' new column
-
-        # chi_index_score receives the clustering result array and the class array
-        valor = metrics.chi_index_score(df['cluster'], df['Class'], k=clusters_num)
-        print(clusters_num , '\t', valor)
-
-
-if __name__ == "__main__":
-    main()
+```bash
+git clone https://github.com/josemarialuna/Chi-Index.git
+cd Chi-Index
+python -m pip install .
+# Optional plotting:
+python -m pip install ".[plot]"
 ```
 
-#### Example 2
+## Score an existing partition
 
-In this case, the class include all the needed code to execute the K-means. You can copy and paste the following code that uses the Iris dataset:
+```python
+from chi_index import chi_index_score
 
-```python 
-import pandas as pd
-from chi_index.model import ChiIndex
-
-
-def main():
-    df = pd.read_csv('./test/data/iris.data', delimiter=",", header=None)
-    print(df.columns)
-    print(df.head())
-    df.rename(columns={4: 'Class'}, inplace=True)
-
-    chi = ChiIndex(df, results_path='result')
-    print(chi.list_chi)
-    print(chi.optimum_chi)
-    print(chi.optimum_k)
-    chi.save_centroids()
-
-
-if __name__ == "__main__":
-    main()
+score = chi_index_score(
+    cluster_labels=[0, 0, 1, 1],
+    class_labels=["a", "a", "b", "b"],
+)
+print(score)  # 2.0
 ```
 
-If you have any problem, or you don't manage to execute the code, please contact me through [DISCUSSION](https://github.com/josemarialuna/Chi-Index/discussions) so I can help you.
+Both sequences must be non-empty, one-dimensional, equally sized and contain
+non-missing, finite, hashable scalar labels. Pairing is **positional**: pandas
+Series indices are ignored. Unused categorical levels are ignored.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+A single observed cluster or class returns **0**, including two constant
+partitions. This is an explicit convention for zero denominators in the paper.
+A score of 2 does not uniquely identify equal partitions: some rectangular
+contingency tables also reach this value.
 
+The optional third positional argument `k` remains supported. It only names
+export files; normalization always uses the observed cluster and class counts.
+By default the function writes no files. Set `save_results=True` and optionally
+`results_path="results"` to export relative-frequency tables as fractions.
+`verbose=True` prints the component statistics. File-system errors propagate.
 
+## Select a K-means model
 
-## Contributing
+```python
+from sklearn.datasets import load_iris
+from chi_index import ChiIndex
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**. Read [CONTRIBUTING.md](CONTRIBUTING.md). We appreciate all kinds of help.
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+iris = load_iris(as_frame=True)
+df = iris.data.copy()
+df["Class"] = iris.target
+
+chi = ChiIndex(df, k_ini=2, k_end=5, save_results=False, random_state=0)
+print(chi.results_)
+print(chi.optimum_k, chi.optimum_chi)
+labels = chi.labels_
+centers = chi.cluster_centers_
+```
+
+Construction immediately fits each K-means model in the **inclusive** range.
+The input DataFrame must have unique column names, a `Class` column, and at
+least one finite real numeric feature. `clusters` is reserved for output.
+Preprocess categorical features, missing values and feature scales yourself.
+The input DataFrame is not modified.
+
+The range must satisfy `1 <= k_ini <= k_end <= n_samples`; `k_end` must not
+exceed the number of distinct feature rows. Defaults are `k_ini=2`, `k_end=5`,
+`n_init=100`, `max_iter=500`, and `random_state=0`. A fixed seed makes repeated
+runs reproducible within the same software environment; results can change
+across dependency versions. Pass `random_state=None` for nondeterministic runs.
+
+- `optimum_k`: k with maximum Chi Index; exact ties choose the smallest k.
+- `optimum_chi`: selected score.
+- `kmeans_model`, `labels_`, `cluster_centers_`: selected model and its outputs.
+- `list_chi`: tuples of `(k, chi1, chi1_max, chi2, chi2_max, chi_index)`.
+- `results_`: the same summary as a DataFrame.
+
+The class retains the historical default `save_results=True`. Set it to
+`False` to avoid **all automatic writes**. When enabled, `results_path`
+(default `"."`) receives three tables per k and `chi_index_result.csv`.
+Despite their historical `.csv` extension, all exports are **tab-separated**
+and include an index column. Class exports contain percentages; standalone
+metric exports contain fractions for compatibility.
+
+To explicitly save the winning model's centroid plot (requires `plot`):
+
+```python
+chi.results_path = "result"
+image_path = chi.save_centroids()
+```
+
+This explicit request writes `centroids_data.png` even if automatic output
+was disabled. No model is serialized. Existing output filenames are overwritten.
+
+The compatibility methods `kmeans(k, X)` and `chi_index(df, k)` remain available:
+the former replaces `kmeans_model`; the latter appends a score to `list_chi`.
+They do not rerun model selection or refresh the summary attributes. Construct
+a new `ChiIndex` for a new search.
+
+## Examples and development
+
+The Iris data is included; no external dataset download is needed.
+After installation, these commands work from the repository root:
+
+```bash
+python test/example_1.py
+python test/example_2.py
+python -m pip install -e ".[dev,plot]"
+python -m pytest --cov --cov-report=term-missing
+python -m ruff check .
+python -m ruff format --check .
+python -m build
+python -m twine check --strict dist/*
+```
+
+Tests cover the paper's contingency tables with an independent Pearson
+calculation, invariance properties, degenerate and invalid inputs, model
+selection, file exports and optional plotting. CI runs tests on Linux and
+Windows with Python 3.10–3.14, and checks a built wheel without Matplotlib.
+See [contributing](CONTRIBUTING.md) and [migration notes](CHANGELOG.md).
+
+## Citation
+
+José María Luna-Romera, María Martínez-Ballesteros, Jorge García-Gutiérrez,
+José C. Riquelme. *External clustering validity index based on chi-squared
+statistical test*. Information Sciences 487 (2019), 1–17.
+[DOI: 10.1016/j.ins.2019.02.046](https://doi.org/10.1016/j.ins.2019.02.046).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Contact 
-
-* **José María Luna-Romera** - [Personal site](https://josemarialuna.com/)
-* **José C. Riquelme** - [Research Group](https://grupo.us.es/minerva/)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Cite this
-Please, cite as: Luna-Romera JM, Martínez-Ballesteros M, García-Gutiérrez J, Riquelme JC. External clustering validity index based on chi-squared statistical test. Information Sciences (2019) 487: 1-17. https://doi.org/10.1016/j.ins.2019.02.046. (http://www.sciencedirect.com/science/article/pii/S0020025519301550)
-```
-@article{LUNAROMERA20191,
-title = {External clustering validity index based on chi-squared statistical test},
-journal = {Information Sciences},
-volume = {487},
-pages = {1-17},
-year = {2019},
-issn = {0020-0255},
-doi = {https://doi.org/10.1016/j.ins.2019.02.046},
-url = {https://www.sciencedirect.com/science/article/pii/S0020025519301550},
-author = {José María Luna-Romera and María Martínez-Ballesteros and Jorge García-Gutiérrez and José C. Riquelme},
-keywords = {Clustering analysis, External validity indices, Comparing clusters, Big data}
-}
-```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/josemarialuna/Chi-Index.svg?style=for-the-badge
-[contributors-url]: https://github.com/josemarialuna/Chi-Index/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/josemarialuna/Chi-Index.svg?style=for-the-badge
-[forks-url]: https://github.com/josemarialuna/Chi-Index/network/members
-[stars-shield]: https://img.shields.io/github/stars/josemarialuna/Chi-Index.svg?style=for-the-badge
-[stars-url]: https://github.com/josemarialuna/Chi-Index/stargazers
-[issues-shield]: https://img.shields.io/github/issues/josemarialuna/Chi-Index.svg?style=for-the-badge
-[issues-url]: https://github.com/josemarialuna/Chi-Index/issues
-[license-shield]: https://img.shields.io/github/license/josemarialuna/Chi-Index.svg?style=for-the-badge
-[license-url]: https://github.com/josemarialuna/Chi-Index/blob/master/LICENSE.txt
-[personal-shield]: https://img.shields.io/badge/Personal%20Site-555?style=for-the-badge
-[personal-url]: https://josemarialuna.com
+[MIT](LICENSE.txt). Please follow the [code of conduct](CODE_OF_CONDUCT.md).
