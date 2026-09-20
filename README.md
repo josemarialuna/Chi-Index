@@ -2,6 +2,10 @@
 
 [![CI](https://github.com/josemarialuna/Chi-Index/actions/workflows/ci.yml/badge.svg)](https://github.com/josemarialuna/Chi-Index/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/chi-index.svg)](https://pypi.org/project/chi-index/)
+[![Downloads](https://static.pepy.tech/badge/chi-index)](https://pepy.tech/project/chi-index)
+[![Python versions](https://img.shields.io/pypi/pyversions/chi-index.svg)](https://pypi.org/project/chi-index/)
+[![Stars](https://img.shields.io/github/stars/josemarialuna/Chi-Index.svg)](https://github.com/josemarialuna/Chi-Index/stargazers)
+[![Contributors](https://img.shields.io/github/contributors/josemarialuna/Chi-Index.svg)](https://github.com/josemarialuna/Chi-Index/graphs/contributors)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.txt)
 
 Chi Index evaluates a clustering partition against known class labels using
@@ -17,8 +21,18 @@ pandas, SciPy and scikit-learn.
 
 ## Installation
 
-The current development version is **3.0.0** and requires Python **3.10+**.
-Version 3.0.0 is not published automatically by this repository.
+Version **3.0.0** requires Python **3.10+**. See the
+[migration notes](CHANGELOG.md) before upgrading from 2.x.
+
+Install or upgrade the published package:
+
+```bash
+python -m pip install --upgrade chi-index
+# Optional plotting:
+python -m pip install --upgrade "chi-index[plot]"
+```
+
+To install from the repository instead:
 
 ```bash
 git clone https://github.com/josemarialuna/Chi-Index.git
@@ -26,12 +40,6 @@ cd Chi-Index
 python -m pip install .
 # Optional plotting:
 python -m pip install ".[plot]"
-```
-
-To install the latest published release (which may differ from this checkout):
-
-```bash
-python -m pip install chi-index
 ```
 
 ## Score an existing partition

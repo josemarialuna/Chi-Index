@@ -1,8 +1,8 @@
 # Changelog
 
-## 3.0.0 — Unreleased
+## 3.0.0 — 2026-09-20
 
-This major development version makes input and side-effect contracts explicit
+This major version makes input and side-effect contracts explicit
 and raises the minimum supported Python version to 3.10.
 
 ### Correctness
