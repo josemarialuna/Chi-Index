@@ -38,4 +38,5 @@ under test. Keep tests deterministic and free of network access.
 Document API changes in README.md and CHANGELOG.md. Preserve compatibility when
 possible and call out breaking changes. Open a pull request describing the
 problem, resulting behavior and validation. A maintainer reviews and merges it.
-Package releases are a separate maintainer action; CI does not publish to PyPI.
+Package releases are a separate maintainer action. See [releasing](docs/releasing.md)
+for the workflow that publishes approved GitHub releases to PyPI.
